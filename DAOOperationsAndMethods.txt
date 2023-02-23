@@ -1,0 +1,68 @@
+DAO:
+
+1. CrimeOperation
+
+public void addCrime(Crime crime) - adds a new crime to the database
+
+public void updateCrime(Crime crime) - updates an existing crime in the database
+
+public void deleteCrime(int id) - deletes a crime from the database by its ID
+
+public List<Crime> getAllCrimes() - returns a list of all crimes in the database
+
+public List<Crime> getCrimesByStatus(String status) - returns a list of all crimes in the database with a specific status
+
+public List<Crime> getCrimesByDate(Date date) - returns a list of all crimes in the database that occurred on a specific date
+
+public List<Crime> getCrimesByPlace(String place) - returns a list of all crimes in the database that occurred in a specific place
+
+
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+
+
+
+2. VictimOperation
+
+public void addVictim(Victim victim) - adds a new victim to the database
+
+public void updateVictim(Victim victim) - updates an existing victim in the database
+
+public void deleteVictim(int id) - deletes a victim from the database by its ID
+
+public List<Victim> getAllVictims() - returns a list of all victims in the database
+
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+
+
+
+3. CriminalOperation
+
+public void addCriminal(Criminal criminal) - adds a new criminal to the database
+
+public void updateCriminal(Criminal criminal) - updates an existing criminal in the database
+
+public void deleteCriminal(int id) - deletes a criminal from the database by its ID
+
+public List<Criminal> getAllCriminals() - returns a list of all criminals in the database
+
+public List<Criminal> getCriminalsByCrime(int crimeId) - returns a list of all criminals in the database associated with a specific crime
+
+
+
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+
+
+
+4. CombinationOperation
+
+public void addCrimeSuspect(int crimeId, int criminalId) - adds a suspect to a specific crime
+
+public void removeCrimeSuspect(int crimeId, int criminalId) - removes a suspect from a specific crime
+
+public List<Criminal> getSuspectsByCrime(int crimeId) - returns a list of all suspects associated with a specific crime
+
+public void addCrimeVictim(int crimeId, int victimId) - adds a victim to a specific crime
+
+public void removeCrimeVictim(int crimeId, int victimId) - removes a victim from a specific crime
+
+public List<Victim> getVictimsByCrime(int crimeId) - returns a list of all victims associated with a specific crime

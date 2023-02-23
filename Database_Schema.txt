@@ -1,0 +1,38 @@
+Table name: crime
+
+Columns:
+- id: integer (primary key)
+- date: date
+- place: varchar
+- description: varchar
+- Detailed_description: varchar
+- status: varchar
+
+Table name: victim
+Columns:
+- id: integer (primary key)
+- name: varchar
+- address: varchar
+- phone: varchar
+
+Table name: criminal
+Columns:
+- id: integer (primary key)
+- name: varchar
+- age: integer
+- gender: varchar
+- address: varchar
+- identifying_mark: varchar
+- Area_of_crime: varchar
+
+Table name: crime_criminal
+Columns:
+- id: integer (primary key)
+- crime_id: integer (foreign key referencing crime.id)
+- criminal_id: integer (foreign key referencing criminal.id)
+
+Table name: crime_victim
+Columns:
+- id: integer (primary key)
+- crime_id: integer (foreign key referencing crime.id)
+- victim_id: integer (foreign key referencing victim.id)

@@ -1,0 +1,46 @@
+ER Diagram;
+
+
+        +-------------------+       +------------------+       +---------------------+
+        |       Crime       |       |    Criminal      |       |  Crime_Criminal     |
+        +-------------------+       +------------------+       +---------------------+
+        |   - crime_id      |       | - criminal_id    |       | - crime_criminal_id |
+        |   - date          |       |   - name         |       | - crime_id          |
+        |   - place         |       |   - age          |       | - criminal_id       |
+        |   - description   |       |   - gender       |       +---------------------+
+        |   - status        |       |   - address      |
+        +-------------------+       |   - idmark       |
+                                    |   - area         |
+                                    +------------------+
+
+
+
+---> To search for all crimes committed by a particular criminal:
+
+SELECT Crime.*
+FROM Crime_Criminal
+JOIN Crime ON Crime_Criminal.crime_id = Crime.crime_id
+WHERE Crime_Criminal.criminal_id = <criminal_id>;
+
+
+---> To search for all criminals associated with a particular crime:
+
+SELECT Criminal.*
+FROM Crime_Criminal
+JOIN Criminal ON Crime_Criminal.criminal_id = Criminal.criminal_id
+WHERE Crime_Criminal.crime_id = <crime_id>;
+
+
+----> To produce a report of the number of solved and unsolved crimes:
+
+SELECT status, COUNT(*) as num_crimes
+FROM Crime
+GROUP BY status;
+
+
+----> To produce a report of the number of crimes recorded in the current month:
+
+
+SELECT COUNT(*) as num_crimes
+FROM Crime
+WHERE MONTH(date) = MONTH(NOW());
