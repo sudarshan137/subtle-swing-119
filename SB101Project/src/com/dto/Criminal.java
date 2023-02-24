@@ -25,7 +25,5 @@ public interface Criminal {
 
 	public void setIndentifyingMarks(String indentifyingMarks) ;
 
-	public String getAreaOfCrime() ;
 
-	public void setAreaOfCrime(String areaOfCrime) ;
 }

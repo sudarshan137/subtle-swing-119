@@ -9,14 +9,13 @@ public class CriminalImpl implements Criminal{
 	private String criminalGender;
 	private String criminalAddress;
 	private String indentifyingMarks;
-	private String areaOfCrime;
 	
 	public CriminalImpl() {
 		
 	}
 	
 	public CriminalImpl(int criminalID, String criminalName, int criminalAge, String criminalGender,
-			String criminalAddress, String indentifyingMarks, String areaOfCrime) {
+			String criminalAddress, String indentifyingMarks) {
 		super();
 		this.criminalID = criminalID;
 		this.criminalName = criminalName;
@@ -24,7 +23,6 @@ public class CriminalImpl implements Criminal{
 		this.criminalGender = criminalGender;
 		this.criminalAddress = criminalAddress;
 		this.indentifyingMarks = indentifyingMarks;
-		this.areaOfCrime = areaOfCrime;
 	}
 
 	public int getCriminalID() {
@@ -75,13 +73,7 @@ public class CriminalImpl implements Criminal{
 		this.indentifyingMarks = indentifyingMarks;
 	}
 
-	public String getAreaOfCrime() {
-		return areaOfCrime;
-	}
 
-	public void setAreaOfCrime(String areaOfCrime) {
-		this.areaOfCrime = areaOfCrime;
-	}
 
 	@Override
 	public int hashCode() {
@@ -104,7 +96,7 @@ public class CriminalImpl implements Criminal{
 	public String toString() {
 		return "CriminalImpl [criminalID=" + criminalID + ", criminalName=" + criminalName + ", CriminalAge="
 				+ CriminalAge + ", criminalGender=" + criminalGender + ", criminalAddress=" + criminalAddress
-				+ ", indentifyingMarks=" + indentifyingMarks + ", areaOfCrime=" + areaOfCrime + "]";
+				+ ", indentifyingMarks=" + indentifyingMarks  + "]";
 	}
 	
 		
