@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.dto.Crime;
+import com.dto.CrimeAndCriminal;
 import com.dto.CrimeImpl;
 import com.dto.Criminal;
 import com.dto.CriminalImpl;
@@ -292,14 +294,13 @@ public class ProjectRequirementImpl implements ProjectRequirements {
 		try {
 			conn = DBUtils.connectToDatabase();
 			
-			String QUERY = "INSERT INTO Crime values (?,?,?,?,?,?)";
+			String QUERY = "INSERT INTO Crime (crimeid, date, place, description, Detailed_description, status ) values (?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(QUERY);
-			ps.setInt(1, crime.getCrimeID());
-			ps.setDate(2, Date.valueOf(crime.getDate()));
-			ps.setString(3, crime.getPlace());
-			ps.setString(4, crime.getDescription());
-			ps.setString(5, crime.getDetailedDescription());
-			ps.setString(6, crime.getStatus());
+			ps.setDate(1, Date.valueOf(crime.getDate()));
+			ps.setString(2, crime.getPlace());
+			ps.setString(3, crime.getDescription());
+			ps.setString(4, crime.getDetailedDescription());
+			ps.setString(5, crime.getStatus());
 			
 			ps.executeUpdate();
 			
@@ -315,22 +316,37 @@ public class ProjectRequirementImpl implements ProjectRequirements {
 	}
 
 	@Override
-	public void addCriminal(Criminal crime) throws SomeThingWrongException {
-Connection conn = null;
-		
+	public int addCriminal(Criminal crime) throws SomeThingWrongException, NoRecordFoundException {
+		Scanner sc = new Scanner(System.in);
+		Connection conn = null;
+		int ans = 0;
+		int res = 0;
 		try {
 			conn = DBUtils.connectToDatabase();
 			
-			String QUERY = "INSERT INTO Criminal values (?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(QUERY);
-			ps.setInt(1, crime.getCriminalID());
-			ps.setString(2, crime.getCriminalName());
-			ps.setInt(3, crime.getCriminalAge());
-			ps.setString(4, crime.getCriminalGender());
-			ps.setString(5, crime.getCriminalAddress());
-			ps.setString(6, crime.getIndentifyingMarks());
+			String QUERY = "INSERT INTO Criminal (name, age, gender, address, idmark) values (?,?,?,?,?)";
+			PreparedStatement ps = null;
+			ps = conn.prepareStatement(QUERY,ps.RETURN_GENERATED_KEYS);
+			ps.setString(1, crime.getCriminalName());
+			ps.setInt(2, crime.getCriminalAge());
+			ps.setString(3, crime.getCriminalGender());
+			ps.setString(4, crime.getCriminalAddress());
+			ps.setString(5, crime.getIndentifyingMarks());
 			
 			ps.executeUpdate();
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			if(isResultSetEmpty(rs))throw new NoRecordFoundException(" ");
+					
+			if(rs.next()) {
+				ans = rs.getInt(1);
+			}
+			System.out.println("Please enter CrimeID associated with the Criminal:"+crime.getCriminalName());
+			int crimeID = sc.nextInt();
+			res = addCrimeCriminal(crimeID, ans);
+			
+			
+			
 			
 		} catch (SQLException e) {
 			throw new SomeThingWrongException();
@@ -341,6 +357,8 @@ Connection conn = null;
 				throw new SomeThingWrongException();
 			}
 		}
+		
+		return res;
 	}
 
 	@Override
@@ -371,55 +389,20 @@ Connection conn = null;
 		}
 		return list;
 	}
-
-	@Override
-	public int getLatestCrimeID() throws NoRecordFoundException, SomeThingWrongException {
-		Connection conn = null;
-		int ans = -1;
-		
-		try {
-			conn = DBUtils.connectToDatabase();
-			String QUERY = "SELECT * FROM Crime order by crimeid desc limit 1";
-			
-			PreparedStatement ps = conn.prepareStatement(QUERY);
-			
-			ResultSet rs = ps.executeQuery();
-			
-			if(isResultSetEmpty(rs)) throw new NoRecordFoundException("");
-			while(rs.next()) {
-			ans = rs.getInt("crimeID");
-			break;
-			}
-		} catch (SQLException e) {
-			throw new SomeThingWrongException();
-		}finally {
-			try {
-				DBUtils.closeConnection(conn);
-			} catch (SQLException e) {
-				throw new SomeThingWrongException();
-			}
-		}
-		return ans;
-	}
 	
-	@Override
-	public int getLatestCriminalID() throws NoRecordFoundException, SomeThingWrongException {
+	public int addCrimeCriminal(int crimeid, int criminalid) throws SomeThingWrongException {
 		Connection conn = null;
-		int ans=0;
 		
 		try {
 			conn = DBUtils.connectToDatabase();
-			String QUERY = "SELECT * FROM Criminal order by CriminalID desc limit 1";
 			
+			String QUERY = "INSERT INTO Crime_Criminal (crimeid, criminalid ) values (?,?)";
 			PreparedStatement ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, crimeid);
+			ps.setInt(2, criminalid);
 			
-			ResultSet rs = ps.executeQuery();
+			ps.executeUpdate();
 			
-			if(isResultSetEmpty(rs)) throw new NoRecordFoundException("");
-			while(rs.next()) {
-			ans = rs.getInt("criminalID");
-			break;
-			}
 		} catch (SQLException e) {
 			throw new SomeThingWrongException();
 		}finally {
@@ -429,7 +412,8 @@ Connection conn = null;
 				throw new SomeThingWrongException();
 			}
 		}
-		return ans;
+		
+		return 1;
 	}
 
 }

@@ -11,9 +11,10 @@ import com.exception.NoRecordFoundException;
 import com.exception.SomeThingWrongException;
 
 public class ProjectUI {
-	public static void main(String[] args) throws InterruptedException {
+	
+	public  void Officer() throws InterruptedException {
 		Scanner sc = new Scanner(System.in);
-				
+		
 		ProjectMethods pm = new ProjectMethods(sc);
 		
 		
@@ -21,7 +22,7 @@ public class ProjectUI {
 		int choice;
 		
 		do {
-			System.out.println("Welcome Office, How can CrimeChase be of service to you today?");
+			System.out.println("Welcome Officer, How can CrimeChase be of service to you today?");
 			System.out.println("1. Get Crimes Comitted by Criminal");
 			System.out.println("2. Get Criminals Associated with Crime");
 			System.out.println("3. Update Crime Status");
@@ -57,5 +58,25 @@ public class ProjectUI {
 			}
 			if(choice!=0)Thread.sleep(2500);
 		} while (choice!=0);
+	}
+	
+	
+	public static void main(String[] args) throws InterruptedException{
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Welcome Officer, Please enter your username");
+		String user = sc.next();
+		System.out.println("Welcome Officer, Please enter your Password");
+		String pass = sc.next();
+		
+		if(user.equals("abc") && pass.equals("123")) {
+			
+			ProjectUI p = new ProjectUI();
+			p.Officer();
+		}else {
+			System.out.println("Wrong Credentials");
+		}
+		
+		
 	}
 }

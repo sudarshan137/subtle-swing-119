@@ -112,24 +112,14 @@ public class ProjectMethods {
 	public void addCrime() {
 		System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
 		System.out.println("Enter CrimeID, date, place, description, detailed_description, status");
-		int crimeid = sc.nextInt();
-		Crime c = new CrimeImpl(crimeid, LocalDate.parse(sc.next()), sc.next(), sc.next(), sc.next(), sc.next());
+		Crime c = new CrimeImpl(0, LocalDate.parse(sc.next()), sc.next(), sc.next(), sc.next(), sc.next());
 		try {
-			boolean flag = true;
-			int ans = pro.getLatestCrimeID();
-			if(crimeid<=ans) {
-				flag = false;
-			}
-			if(flag) {
+			System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
 			pro.addCrime(c);
 			System.out.println("Crime Added Successfully");
 			System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
-			}else {
-				System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
-				System.out.println("Answer:\nCrimeID Already Exists in the database, use --> "+(ans+1)+" for next crimeID");
-				System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
 			}
-		} catch (SomeThingWrongException | NoRecordFoundException e) {
+		 catch (SomeThingWrongException e) {
 			e.printStackTrace();
 		}
 		
@@ -137,25 +127,16 @@ public class ProjectMethods {
 	
 	public void addCriminal() {
 		System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
-		System.out.println("Enter criminalID, name, age, gender, address, idmark");
-		int crimID = sc.nextInt();
-		Criminal c = new CriminalImpl(crimID, sc.next(), sc.nextInt(), sc.next(), sc.next(), sc.next());
+		System.out.println("Enter name, age, gender, address, idmark");
+		Criminal c = new CriminalImpl(0, sc.next(), sc.nextInt(), sc.next(), sc.next(), sc.next());
 		try {
-			boolean flag = true;
-			int ans = pro.getLatestCriminalID();
-			if(crimID<=ans) {
-				flag = false;
-			}
-			if(flag) {
-			pro.addCriminal(c);
-			System.out.println("Criminal Added Successfully");
 			System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
-			}else {
-				System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
-				System.out.println("Answer:\nCriminalID Already Exists in the database, use --> "+(ans+1)+" for next criminalID");
-				System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
+			int criminalID = pro.addCriminal(c);
+			System.out.println("Criminal Added Successfully, Generated CriminalID: "+criminalID);
+			System.out.println("\n*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*\n");
+		
 			}
-		} catch (SomeThingWrongException | NoRecordFoundException e) {
+		 catch (SomeThingWrongException | NoRecordFoundException e) {
 			e.printStackTrace();
 		}
 		

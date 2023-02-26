@@ -1,0 +1,76 @@
+CREATE DATABASE CrimePatrol;
+
+USE CrimePatrol;
+
+CREATE TABLE crime (
+  crimeID INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  date DATE,
+  place VARCHAR(20) NOT NULL,
+  description VARCHAR(40) NOT NULL,
+  Detailed_description VARCHAR(140) NOT NULL,
+  status VARCHAR(10)
+);
+
+CREATE TABLE criminal (
+  criminalid INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  name VARCHAR(20) NOT NULL,
+  age INT NOT NULL,
+  gender VARCHAR(10) NOT NULL,
+  address VARCHAR(30) NOT NULL,
+  idmark VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE crime_criminal (
+    crime_criminal_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    crimeid int NOT NULL,
+    criminalid int NOT NULL,
+    FOREIGN KEY (crimeid) REFERENCES crime(crimeID),
+    FOREIGN KEY (criminalid) REFERENCES criminal(criminalid)
+);
+
+INSERT INTO Crime (crimeID, date, place, description, Detailed_description, status)
+VALUES 
+(1, '2022-01-01', 'New York', 'Robbery', 'A person stole money from a bank', 'Solved'),
+(2, '2022-01-02', 'Los Angeles', 'Assault', 'A person attacked another person with a knife', 'Closed'),
+(3, '2022-01-03', 'Chicago', 'Burglary', 'A person broke into a home and stole valuables', 'Open'),
+(4, '2022-01-04', 'Houston', 'Vandalism', 'A person damaged public property', 'Closed'),
+(5, '2022-01-05', 'Philadelphia', 'Arson', 'A building was set on fire', 'Open'),
+(6, '2023-02-05', 'Park Street', 'Robbery', 'Stolen jewelry worth $10,000', 'unsolved'),
+(7, '2023-02-10', 'Main Street', 'Homicide', 'Murder of a local businessman', 'solved'),
+(8, '2023-02-15', 'Oak Avenue', 'Assault', 'Victim was hospitalized with serious injuries', 'unsolved'),
+(9, '2023-02-20', 'Maple Road', 'Burglary', 'Homeowner reported missing cash and electronics', 'unsolved'),
+(10, '2023-02-25', 'Elm Street', 'Vandalism', 'Several cars were spray-painted', 'unsolved'),
+(11, '2021-12-01', 'Baker Street', 'Robbery', 'Stole cash and jewelry worth $50,000', 'Pending'),
+(12, '2021-12-02', 'Park Lane', 'Assault', 'Attacked victim with a baseball bat', 'Solved'),
+(13, '2021-12-03', 'Regent Street', 'Burglary', 'Stole electronics and jewelry worth $20,000', 'Pending'),
+(14, '2021-12-04', 'Baker Street', 'Assault', 'Beat victim unconscious', 'Pending'),
+(15, '2021-12-05', 'Oxford Street', 'Robbery', 'Stole cash and electronics worth $30,000', 'Solved'),
+(16, '2021-12-06', 'Park Lane', 'Burglary', 'Stole electronics and jewelry worth $40,000', 'Solved'),
+(17, '2021-12-07', 'Regent Street', 'Assault', 'Punched victim in the face', 'Pending'),
+(18, '2021-12-08', 'Baker Street', 'Robbery', 'Stole cash and jewelry worth $60,000', 'Pending'),
+(19, '2021-12-09', 'Oxford Street', 'Assault', 'Threatened victim with a knife', 'Pending'),
+(20, '2021-12-10', 'Regent Street', 'Robbery', 'Stole cash and electronics worth $25,000', 'Solved');
+
+INSERT INTO criminal (criminalid, name, age, gender, address, idmark)
+VALUES
+  (1, 'John Smith', 30, 'Male', '123 Main St', 'Tattoo on left arm'),
+  (2, 'Sarah Johnson', 25, 'Female', '456 Maple Ave', 'Scar above right eyebrow'),
+  (3, 'Michael Lee', 42, 'Male', '789 Oak St', 'Missing finger on right hand'),
+  (4, 'Jessica', 30, 'Female', '22 Baker Street, London', 'Mole on the right cheek'),
+  (5, 'John', 45, 'Male', '15 High Street, Manchester', 'Scar on the left hand'),
+  (6, 'Jackie Chan', 65, 'Male', '123 Main Street', 'Missing finger on left hand'),
+  (7, 'Maggie Simpson', 3, 'Female', '742 Evergreen Terrace', 'Pacifier in mouth'),
+  (8, 'Darth Vader', 54, 'Male', 'Death Star', 'Breathing apparatus'),
+  (9, 'Cruella De Vil', 52, 'Female', '13 Forest Lane', 'White streak in hair'),
+  (10, 'Hannibal Lecter', 63, 'Male', '1113 Baltimore St', 'Polydactyly');
+
+INSERT INTO crime_criminal (crimeid, criminalid)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3),
+       (4, 4),
+       (5, 5),
+       (2, 1),
+       (3, 1),
+       (4, 1);
+

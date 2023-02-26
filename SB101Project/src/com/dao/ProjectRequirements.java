@@ -3,6 +3,7 @@ package com.dao;
 import java.util.List;
 
 import com.dto.Crime;
+import com.dto.CrimeAndCriminal;
 import com.dto.Criminal;
 import com.exception.NoRecordFoundException;
 import com.exception.SomeThingWrongException;
@@ -16,8 +17,8 @@ public interface ProjectRequirements {
 	public List getNumOfSolvedUnsolvedCrimes() throws NoRecordFoundException, SomeThingWrongException;
 	public int CrimesRecordedInCurrentMonth() throws NoRecordFoundException,SomeThingWrongException;
 	public void addCrime(Crime crime) throws SomeThingWrongException;
-	public void addCriminal(Criminal criminal) throws SomeThingWrongException;
+	public int addCriminal(Criminal criminal) throws SomeThingWrongException, NoRecordFoundException;
 	public List<Crime> getCrimesList() throws NoRecordFoundException, SomeThingWrongException;
-	public int getLatestCrimeID() throws NoRecordFoundException, SomeThingWrongException;
-	public int getLatestCriminalID() throws NoRecordFoundException, SomeThingWrongException;
+	public int addCrimeCriminal(int crimeid, int criminalid) throws SomeThingWrongException ;
+	
 }

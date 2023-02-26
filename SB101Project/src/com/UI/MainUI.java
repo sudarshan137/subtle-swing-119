@@ -7,7 +7,7 @@ public class MainUI {
 		Scanner sc = new Scanner(System.in);
 		
 		CrimeUI cUI = new CrimeUI(sc);
-		CriminalUI crUI = new CriminalUI(sc);
+//		CriminalUI crUI = new CriminalUI(sc);
 		VictimUI vUI = new VictimUI();
 		CombinationUI comUI = new CombinationUI();
 		

@@ -43,4 +43,4 @@ GROUP BY status;
 
 SELECT COUNT(*) as num_crimes
 FROM Crime
-WHERE MONTH(date) = MONTH(NOW());
+WHERE MONTH(date) = MONTH(NOW())
